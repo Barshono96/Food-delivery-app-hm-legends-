@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Invoice <%= invoiceNo %></title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #ffffff;
+        color: #3b3b3b;
+        margin: 0;
+        padding: 16px;
+        width: 100%;
+      }
+
+      .invoice-container {
+        max-width: 700px;
+        width: 100%;
+        margin: auto;
+        border-radius: 4px;
+        background-color: #fff;
+        padding: 16px 0;
+      }
+
+      .section {
+        padding: 0 16px;
+      }
+
+      h3 {
+        margin: 0px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #1D1F2C;
+      }
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .name {
+        color: #4A4C56;
+        font-size: 16px;
+        font-weight: 500;
+        margin-top: 12px !important;
+        margin-bottom: 8px !important;
+      }
+
+      .address,
+      .phone {
+        color: #4A4C56;
+        font-size: 14px;
+        font-weight: 400;
+        margin-top: 8px;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid #e0e0e0;
+        margin: 18px 0;
+        width: 100%;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      th {
+        font-weight: 500;
+        text-align: left;
+        font-size: 12px;
+        padding: 8px 0;
+        color: #2c2c2c;
+      }
+
+      td {
+        font-size: 12px;
+        padding: 8px 0;
+        color: #4a4a4a;
+      }
+
+      .table-header {
+        border-bottom: 1px solid #ccc;
+      }
+
+      .table-row {
+        border-bottom: 1px solid #eee;
+      }
+
+      .summary {
+        text-align: right;
+        margin-top: 14px;
+        font-weight: 400;
+        font-size: 14px;
+      }
+
+      .invoice-meta {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #444;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="invoice-container">
+      <!-- Invoice From -->
+      <div class="section">
+        <h3>Invoice From</h3>
+        <p class="name"><%= invoiceFrom.name %></p>
+        <p class="address"><%= invoiceFrom.address %></p>
+        <p class="phone"><%= invoiceFrom.phone %></p>
+      </div>
+
+      <hr />
+
+      <!-- Ship To -->
+      <div class="section">
+        <h3>Ship to</h3>
+        <p class="name"><%= shipTo.name %></p>
+        <p class="address"><%= shipTo.address %></p>
+        <p class="phone"><%= shipTo.phone %></p>
+      </div>
+
+      <hr />
+
+      <!-- Invoice Info + Items -->
+      <div class="section">
+        <div class="invoice-meta">
+          <span style="margin-right: auto;">DATE: <%= date %></span>
+          <span style="margin-left: auto;">INVOICE NO: <%= invoiceNo %></span>
+        </div>
+
+        <hr style="margin-top: 0;" />
+
+        <table>
+          <thead class="table-header">
+            <tr>
+              <th>NO</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% items.forEach((item, index) => { %>
+            <tr class="table-row">
+              <td><%= (index + 1).toString().padStart(2, '0') %></td>
+              <td><%= item.name %></td>
+              <td>£<%= item.price %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.total %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+
+        <p class="summary">Subtotal: £<%= subtotal %></p>
+      </div>
+    </div>
+  </body>
+</html>
